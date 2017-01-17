@@ -1,0 +1,43 @@
+1)CREATE DATABASE "custom";
+
+2)CREATE TABLE IF NOT EXISTS data
+(
+date String,
+zip_code int,
+temperature int
+)
+row format delimited
+fields terminated by ',';
+
+3)LOAD DATA 
+LOCAL INPATH '/home/acadgild/Desktop/HIve/dataset_Session.txt'
+INTO TABLE data;
+
+4)create table temperature_data (date date,zip_code int,temperature int);
+
+
+5)insert into table temperature_data select from_unixtime(unix_timestamp(date,'dd-MM-yyyy')),zip_code,temperature from data;
+=================================
+Output:
+hive> select * from temperature_data;
+OK
+10-01-1990	123112	10
+14-02-1991	283901	11
+10-03-1990	381920	15
+10-01-1991	302918	22
+12-02-1990	384902	9
+10-01-1991	123112	11
+14-02-1990	283901	12
+10-03-1991	381920	16
+10-01-1990	302918	23
+12-02-1991	384902	10
+10-01-1993	123112	11
+14-02-1994	283901	12
+10-03-1993	381920	16
+10-01-1994	302918	23
+12-02-1991	384902	10
+10-01-1991	123112	11
+14-02-1990	283901	12
+10-03-1991	381920	16
+10-01-1990	302918	23
+12-02-1991	384902	10
